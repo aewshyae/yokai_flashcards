@@ -43,11 +43,11 @@
 - https://mizuki.sakaiminato.net/road/road_pages/yokai_near/
 - https://mizuki.sakaiminato.net/road/road_pages/yokai_home/
 
-## 仕様
+## 仕様(spec)
 - like Tinder, show 1 card at a time
   - images should be shown in square keeping its ratio
-- first card shown without its name
-- when clicked. flips and shows its name. then clicked, go to the next card.
+- first card shown without its name and image.
+- when clicked. flips and shows its name and image. then clicked, go to the next card.
 - remove number and spaces from its name
   - for example: 「82. 鬼太郎と目 玉 おやじ」 should be 「鬼太郎と目玉おやじ」
 - mask its name in the description

@@ -109,16 +109,16 @@ function App() {
             userSelect: 'none',
           }}
         >
-          <div style={{ width: '100%', aspectRatio: '4 / 3', position: 'relative', background: '#f3f4f6' }}>
-            {current.imageUrl ? (
+          <div style={{ width: '100%', aspectRatio: '1 / 1', position: 'relative', background: '#f3f4f6' }}>
+            {flipped && current.imageUrl ? (
               // eslint-disable-next-line jsx-a11y/img-redundant-alt
               <img
                 src={current.imageUrl}
-                alt={flipped ? `${current.name}` : '妖怪画像'}
+                alt={`${current.name}`}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
               />
             ) : (
-              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: '#6b7280' }}>No Image</div>
+              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: '#6b7280' }}>画像は反転後に表示</div>
             )}
           </div>
           <div style={{ padding: 12 }}>
@@ -140,6 +140,7 @@ function App() {
       <div style={{ marginTop: 8, color: '#6b7280', fontSize: 13 }}>
         {filtered.length > 0 && `${(currentIndex % filtered.length) + 1} / ${filtered.length}`}
       </div>
+      <div style={{ marginTop: 16, color: '#6b7280', fontSize: 12, textAlign: 'center' }}>© 水木プロダクション</div>
     </div>
   )
 }

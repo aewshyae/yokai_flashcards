@@ -19,11 +19,13 @@
 
 ## Spec (2025-09-22)
 - One-card flow like Tinder: show one card at a time.
-- First view hides the name; clicking flips to reveal the name; clicking again advances to next.
+- First view hides the name and image; clicking flips to reveal both; clicking again advances to next.
 - Location shows without the `出現地／` prefix.
 - Description masks occurrences of the yokai name with `◯`.
 - Masking handles spaced characters inside descriptions (半角/全角スペースを許容)。
 - Masking supports aliases configurable via `web/public/aliases.json`.
+- Image container is square (1:1) while keeping image aspect via cover.
+- Footer shows copyright: `© 水木プロダクション`.
 
 ## Next
 - Wire npm scripts to sync dataset to `web/public`.
