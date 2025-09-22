@@ -1,0 +1,25 @@
+{
+  "name": "youkai-kentei",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape": "tsx scripts/scrape.ts",
+    "sync:data": "cp -f data/yokai.json web/public/yokai.json",
+    "web:dev": "npm --prefix web run dev",
+    "web:build": "npm --prefix web run build",
+    "web:preview": "npm --prefix web run preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "axios": "^1.12.2",
+    "cheerio": "^1.1.2",
+    "p-queue": "^8.1.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
