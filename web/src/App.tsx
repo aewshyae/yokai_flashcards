@@ -17,6 +17,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [aliases, setAliases] = useState<AliasesMap>({})
+  const [deck, setDeck] = useState<Yokai[]>([])
 
   useEffect(() => {
     fetch('/yokai.json')
@@ -45,7 +46,13 @@ function App() {
     setFlipped(false)
   }, [query])
 
-  const current = filtered.length > 0 ? filtered[currentIndex % filtered.length] : null
+  useEffect(() => {
+    setDeck(filtered)
+    setCurrentIndex(0)
+    setFlipped(false)
+  }, [filtered])
+
+  const current = deck.length > 0 ? deck[currentIndex % deck.length] : null
 
   function escapeRegExp(text: string) {
     return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -86,6 +93,21 @@ function App() {
     }
   }
 
+  function shuffleArray<T>(arr: T[]): T[] {
+    const a = arr.slice()
+    for (let i = a.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[a[i], a[j]] = [a[j], a[i]]
+    }
+    return a
+  }
+
+  function shuffleDeck() {
+    setDeck((prev) => shuffleArray(prev.length ? prev : filtered))
+    setCurrentIndex(0)
+    setFlipped(false)
+  }
+
   return (
     <div style={{ maxWidth: 768, margin: '0 auto', padding: 16 }}>
       <h1>妖怪フラッシュカード / Yokai Flashcards</h1>
@@ -96,6 +118,7 @@ function App() {
           placeholder="検索 / Search"
           style={{ flex: 1, padding: 8, fontSize: 16 }}
         />
+        <button onClick={shuffleDeck} aria-label="shuffle" style={{ padding: '8px 12px' }}>ランダム</button>
       </div>
       {current ? (
         <article
@@ -138,7 +161,7 @@ function App() {
         <p>該当するカードがありません</p>
       )}
       <div style={{ marginTop: 8, color: '#6b7280', fontSize: 13 }}>
-        {filtered.length > 0 && `${(currentIndex % filtered.length) + 1} / ${filtered.length}`}
+        {deck.length > 0 && `${(currentIndex % deck.length) + 1} / ${deck.length}`}
       </div>
       <div className="license" style={{ marginTop: 16, fontSize: 12, lineHeight: 1.6 }}>
         <p className="ja">すべての画像・テキストの権利は取得元である<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
