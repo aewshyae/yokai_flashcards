@@ -15,6 +15,7 @@
 - Keep `name` field without numeric prefix; keep numeric id separately (may be -1 if absent).
 - Do not bundle images; use remote URLs from source pages.
 - Minimal styling via inline styles to ship quickly.
+- Cleanse names in scraper: Unicode NFKC, remove all spaces (half/full width).
 
 ## Spec (2025-09-22)
 - One-card flow like Tinder: show one card at a time.

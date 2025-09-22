@@ -41,27 +41,40 @@ function absoluteUrl(base: string, src?: string | null): string | null {
   }
 }
 
-function parseYokaiFromSection($: cheerio.CheerioAPI, section: cheerio.Cheerio, pageUrl: string): Yokai | null {
+function normalizeName(rawName: string): string {
+  // Unicode normalize and remove all kinds of spaces, then trim again
+  const normalized = rawName.normalize("NFKC");
+  const withoutSpaces = normalized.replace(/[\s\u3000]+/g, "");
+  return withoutSpaces.trim();
+}
+
+function parseYokaiFromSection(
+  $: cheerio.CheerioAPI,
+  section: cheerio.Cheerio<any>,
+  pageUrl: string,
+): Yokai | null {
   const imgSrc = section.find("p.img_box img").attr("src") || null;
   const imageUrl = absoluteUrl(pageUrl, imgSrc);
 
-  const titleText = section.find("div.text_area h3.simple").first().text().trim();
+  const titleText = String(section.find("div.text_area h3.simple").first().text() || "").trim();
   // Pattern like: "149. ばけぞうり" → id=149, name=ばけぞうり
   let id = NaN;
   let name = titleText;
   const m = titleText.match(/^(\d+)\.\s*(.+)$/);
-  if (m) {
+  if (m && m[1] && m[2]) {
     id = parseInt(m[1], 10);
     name = m[2].trim();
   }
+  name = normalizeName(name);
 
-  const locationRaw = section.find("div.text_area p.border_text").first().text().trim();
+  const locationRaw = String(section.find("div.text_area p.border_text").first().text() || "").trim();
   // e.g. "出現地／伊勢（三重県）"
   let location: string | null = null;
   const locMatch = locationRaw.replace(/\s+/g, "").match(/出現地／(.+)/);
-  if (locMatch) location = locMatch[1];
+  if (locMatch) location = locMatch[1] ?? null;
 
-  const description = section.find("div.text_area > p").not(".border_text").first().text().trim() || null;
+  const descriptionText = String(section.find("div.text_area > p").not(".border_text").first().text() || "").trim();
+  const description = descriptionText.length > 0 ? descriptionText : null;
 
   if (!name) return null;
 

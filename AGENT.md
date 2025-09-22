@@ -47,6 +47,8 @@
 - like Tinder, show 1 card at a time
 - first card shown without its name
 - when clicked. flips and shows its name. then clicked, go to the next card.
+- remove number and spaces from its name
+  - for example: 「82. 鬼太郎と目 玉 おやじ」 should be 「鬼太郎と目玉おやじ」
 - mask its name in the description
   - sometimes includes spaces among names in description
   - its name ocassionally has aliases. it should be maintained by it's user with json
