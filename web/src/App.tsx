@@ -14,7 +14,6 @@ type AliasesMap = Record<string, string[]>
 function App() {
   const [yokai, setYokai] = useState<Yokai[]>([])
   const [query, setQuery] = useState('')
-  const [onlyWithImage, setOnlyWithImage] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [aliases, setAliases] = useState<AliasesMap>({})
@@ -35,17 +34,16 @@ function App() {
   const filtered = useMemo(() => {
     const q = query.trim()
     return yokai.filter((y) => {
-      if (onlyWithImage && !y.imageUrl) return false
       if (!q) return true
       const hay = `${y.name} ${y.location ?? ''} ${y.description ?? ''}`
       return hay.includes(q)
     })
-  }, [yokai, query, onlyWithImage])
+  }, [yokai, query])
 
   useEffect(() => {
     setCurrentIndex(0)
     setFlipped(false)
-  }, [query, onlyWithImage])
+  }, [query])
 
   const current = filtered.length > 0 ? filtered[currentIndex % filtered.length] : null
 
@@ -98,14 +96,6 @@ function App() {
           placeholder="検索 / Search"
           style={{ flex: 1, padding: 8, fontSize: 16 }}
         />
-        <label style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-          <input
-            type="checkbox"
-            checked={onlyWithImage}
-            onChange={(e) => setOnlyWithImage(e.target.checked)}
-          />
-          画像ありのみ
-        </label>
       </div>
       {current ? (
         <article

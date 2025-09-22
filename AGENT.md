@@ -53,3 +53,4 @@
 - mask its name in the description
   - sometimes includes spaces among names in description
   - its name ocassionally has aliases. it should be maintained by it's user with json
+- show its keep original license at bottom with `© 水木プロダクション` 
