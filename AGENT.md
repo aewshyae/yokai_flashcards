@@ -7,6 +7,10 @@
 - plan first
 - SOLID原則を守る
 - use git, keep commiting
+  - never use `git add -A`. add separately.
+  - use conventional commit. separate commit for each targets or convetntional commit's type
+    - see: https://www.conventionalcommits.org/en/v1.0.0/#summary
+  - summarize diff for commit message 
 - record your context to file(s)
 
 
@@ -53,4 +57,9 @@
 - mask its name in the description
   - sometimes includes spaces among names in description
   - its name ocassionally has aliases. it should be maintained by it's user with json
-- show its keep original license at bottom with `© 水木プロダクション` 
+- show its keep original license at bottom with
+   ```html
+   <div class="license">
+    <p class="ja">すべての画像・テキストの権利は取得元である<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
+    <p class="en">all contents are originally keeped its license by <a href="https://mizuki.sakaiminato.net/road/">Mizuki Shigeru Memorial Museum</a>.</p>
+   ``` 
