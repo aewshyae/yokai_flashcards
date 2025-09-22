@@ -140,7 +140,10 @@ function App() {
       <div style={{ marginTop: 8, color: '#6b7280', fontSize: 13 }}>
         {filtered.length > 0 && `${(currentIndex % filtered.length) + 1} / ${filtered.length}`}
       </div>
-      <div style={{ marginTop: 16, color: '#6b7280', fontSize: 12, textAlign: 'center' }}>© 水木プロダクション</div>
+      <div className="license" style={{ marginTop: 16, fontSize: 12, lineHeight: 1.6 }}>
+        <p className="ja">すべての画像・テキストの権利は取得元である<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
+        <p className="en">all contents are originally keeped its license by <a href="https://mizuki.sakaiminato.net/road/">Mizuki Shigeru Memorial Museum</a>.</p>
+      </div>
     </div>
   )
 }
