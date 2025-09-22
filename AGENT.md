@@ -15,7 +15,7 @@
 - ブロンズ像画像
 - 妖怪名 (remove number)
 - 出現地 (remove 出現地／)
-- 説明
+- 説明 (mask its 妖怪名)
 
 ### 情報形式
 各ページには多数の妖怪情報が以下の形式で存在する。
@@ -42,3 +42,11 @@
 - https://mizuki.sakaiminato.net/road/road_pages/yokai_gods/
 - https://mizuki.sakaiminato.net/road/road_pages/yokai_near/
 - https://mizuki.sakaiminato.net/road/road_pages/yokai_home/
+
+## 仕様
+- like Tinder, show 1 card at a time
+- first card shown without its name
+- when clicked. flips and shows its name. then clicked, go to the next card.
+- mask its name in the description
+  - sometimes includes spaces among names in description
+  - its name ocassionally has aliases. it should be maintained by it's user with json

@@ -9,15 +9,27 @@ type Yokai = {
   description: string | null
 }
 
+type AliasesMap = Record<string, string[]>
+
 function App() {
   const [yokai, setYokai] = useState<Yokai[]>([])
   const [query, setQuery] = useState('')
   const [onlyWithImage, setOnlyWithImage] = useState(true)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [flipped, setFlipped] = useState(false)
+  const [aliases, setAliases] = useState<AliasesMap>({})
 
   useEffect(() => {
     fetch('/yokai.json')
       .then((r) => r.json())
       .then((data: Yokai[]) => setYokai(data))
+  }, [])
+
+  useEffect(() => {
+    fetch('/aliases.json')
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((data: AliasesMap) => setAliases(data || {}))
+      .catch(() => setAliases({}))
   }, [])
 
   const filtered = useMemo(() => {
@@ -30,8 +42,54 @@ function App() {
     })
   }, [yokai, query, onlyWithImage])
 
+  useEffect(() => {
+    setCurrentIndex(0)
+    setFlipped(false)
+  }, [query, onlyWithImage])
+
+  const current = filtered.length > 0 ? filtered[currentIndex % filtered.length] : null
+
+  function escapeRegExp(text: string) {
+    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  }
+
+  function buildSpacedInsensitiveRegex(name: string): RegExp {
+    const chars = Array.from(name)
+    const between = '[\\s\\u3000]*'
+    const pattern = chars.map((c) => escapeRegExp(c)).join(between)
+    return new RegExp(pattern, 'g')
+  }
+
+  function maskMatchedPreservingSpaces(matched: string): string {
+    return matched.replace(/[^\s\u3000]/g, '◯')
+  }
+
+  function maskNamesInText(names: string[], text: string | null): string | null {
+    if (!text || names.length === 0) return text
+    let result = text
+    for (const n of names) {
+      if (!n) continue
+      const re = buildSpacedInsensitiveRegex(n)
+      result = result.replace(re, (m) => maskMatchedPreservingSpaces(m))
+    }
+    return result
+  }
+
+  const namesToMask = current ? [current.name, ...(aliases[current.name] ?? [])] : []
+  const maskedDescription = current ? maskNamesInText(namesToMask, current.description) : null
+
+  function handleCardClick() {
+    if (!current) return
+    if (!flipped) {
+      setFlipped(true)
+    } else {
+      setCurrentIndex((i) => i + 1)
+      setFlipped(false)
+    }
+  }
+
   return (
-    <div style={{ maxWidth: 1080, margin: '0 auto', padding: 16 }}>
+    <div style={{ maxWidth: 640, margin: '0 auto', padding: 16 }}>
       <h1>妖怪フラッシュカード / Yokai Flashcards</h1>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12 }}>
         <input
@@ -49,28 +107,42 @@ function App() {
           画像ありのみ
         </label>
       </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: 12,
-        }}
-      >
-        {filtered.map((y) => (
-          <article key={`${y.id}-${y.name}`} style={{ border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden', background: '#fff' }}>
-            {y.imageUrl ? (
-              // eslint-disable-next-line jsx-a11y/img-redundant-alt
-              <img src={y.imageUrl} alt={`${y.name} image`} style={{ width: '100%', height: 180, objectFit: 'cover' }} />
-            ) : (
-              <div style={{ width: '100%', height: 180, display: 'grid', placeItems: 'center', background: '#f3f4f6' }}>No Image</div>
+      {current ? (
+        <article
+          onClick={handleCardClick}
+          style={{
+            border: '1px solid #e5e7eb',
+            borderRadius: 8,
+            overflow: 'hidden',
+            background: '#fff',
+            cursor: 'pointer',
+            userSelect: 'none',
+          }}
+        >
+          {current.imageUrl ? (
+            // eslint-disable-next-line jsx-a11y/img-redundant-alt
+            <img src={current.imageUrl} alt={flipped ? `${current.name}` : '妖怪画像'} style={{ width: '100%', height: 320, objectFit: 'cover' }} />
+          ) : (
+            <div style={{ width: '100%', height: 320, display: 'grid', placeItems: 'center', background: '#f3f4f6' }}>No Image</div>
+          )}
+          <div style={{ padding: 12 }}>
+            <h2 style={{ fontSize: 22, margin: 0 }}>{flipped ? current.name : '？？？'}</h2>
+            {current.location && (
+              <p style={{ margin: '6px 0', color: '#374151' }}>{String(current.location).replace(/^出現地／/, '')}</p>
             )}
-            <div style={{ padding: 12 }}>
-              <h2 style={{ fontSize: 18, margin: 0 }}>{y.name}</h2>
-              {y.location && <p style={{ margin: '6px 0', color: '#374151' }}>出現地／{y.location}</p>}
-              {y.description && <p style={{ margin: 0, color: '#111827', fontSize: 14, lineHeight: 1.5 }}>{y.description}</p>}
-            </div>
-          </article>
-        ))}
+            {maskedDescription && (
+              <p style={{ margin: 0, color: '#111827', fontSize: 15, lineHeight: 1.6 }}>{maskedDescription}</p>
+            )}
+          </div>
+          <div style={{ padding: 12, color: '#6b7280', fontSize: 13 }}>
+            {flipped ? 'クリックで次のカードへ' : 'クリックで反転して名前を表示'}
+          </div>
+        </article>
+      ) : (
+        <p>該当するカードがありません</p>
+      )}
+      <div style={{ marginTop: 8, color: '#6b7280', fontSize: 13 }}>
+        {filtered.length > 0 && `${(currentIndex % filtered.length) + 1} / ${filtered.length}`}
       </div>
     </div>
   )
