@@ -45,6 +45,7 @@
 
 ## 仕様
 - like Tinder, show 1 card at a time
+  - images should be shown in square keeping its ratio
 - first card shown without its name
 - when clicked. flips and shows its name. then clicked, go to the next card.
 - remove number and spaces from its name

@@ -89,7 +89,7 @@ function App() {
   }
 
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto', padding: 16 }}>
+    <div style={{ maxWidth: 768, margin: '0 auto', padding: 16 }}>
       <h1>妖怪フラッシュカード / Yokai Flashcards</h1>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12 }}>
         <input
@@ -119,12 +119,18 @@ function App() {
             userSelect: 'none',
           }}
         >
-          {current.imageUrl ? (
-            // eslint-disable-next-line jsx-a11y/img-redundant-alt
-            <img src={current.imageUrl} alt={flipped ? `${current.name}` : '妖怪画像'} style={{ width: '100%', height: 320, objectFit: 'cover' }} />
-          ) : (
-            <div style={{ width: '100%', height: 320, display: 'grid', placeItems: 'center', background: '#f3f4f6' }}>No Image</div>
-          )}
+          <div style={{ width: '100%', aspectRatio: '4 / 3', position: 'relative', background: '#f3f4f6' }}>
+            {current.imageUrl ? (
+              // eslint-disable-next-line jsx-a11y/img-redundant-alt
+              <img
+                src={current.imageUrl}
+                alt={flipped ? `${current.name}` : '妖怪画像'}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: '#6b7280' }}>No Image</div>
+            )}
+          </div>
           <div style={{ padding: 12 }}>
             <h2 style={{ fontSize: 22, margin: 0 }}>{flipped ? current.name : '？？？'}</h2>
             {current.location && (
