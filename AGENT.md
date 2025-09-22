@@ -18,7 +18,7 @@
 水木しげるロードのサイトにある各種妖怪の紹介ページから、以下の情報を抽出し、フラッシュカードのサービスを作る。
 - ブロンズ像画像
 - 妖怪名 (remove number)
-- 出現地 (remove 出現地／)
+- 出現地 (remove "出現地／")
 - 説明 (mask its 妖怪名)
 
 ### 情報形式
@@ -63,3 +63,4 @@
     <p class="ja">すべての画像・テキストの権利は取得元である<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
     <p class="en">all contents are originally keeped its license by <a href="https://mizuki.sakaiminato.net/road/">Mizuki Shigeru Memorial Museum</a>.</p>
    ``` 
+- user can randomize the order
