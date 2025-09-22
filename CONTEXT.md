@@ -26,6 +26,7 @@
 - Masking supports aliases configurable via `web/public/aliases.json`.
 - Image container is square (1:1) while keeping image aspect via cover.
 - Footer shows copyright: `© 水木プロダクション`.
+- Footer license block per spec with JA/EN text and links.
 
 ## Next
 - Wire npm scripts to sync dataset to `web/public`.
