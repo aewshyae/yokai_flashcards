@@ -115,7 +115,7 @@ function App() {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="検索 / Search"
+          placeholder="検索(名前・出現地・説明)"
           style={{ flex: 1, padding: 8, fontSize: 16 }}
         />
         <button onClick={shuffleDeck} aria-label="shuffle" style={{ padding: '8px 12px' }}>ランダム</button>
