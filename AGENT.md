@@ -52,8 +52,8 @@
 ## 仕様(spec)
 - like Tinder, show 1 card at a time
   - images should be shown in square keeping its ratio
-- first card shown without its name and image.
-- when clicked. flips and shows its name and image. then clicked, go to the next card.
+- first card shown without its name, reading and image.
+- when clicked. flips and shows its name, reading and image. then clicked, go to the next card.
 - remove number and spaces from its name
   - for example: 「82. 鬼太郎と目 玉 おやじ」 should be 「鬼太郎と目玉おやじ」
 - mask its name in the description
@@ -62,7 +62,7 @@
 - show its keep original license at bottom with
    ```html
    <div class="license">
-    <p class="ja">すべての画像・テキストの権利は取得元である<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
+    <p class="ja">すべての画像・テキストの権利は<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
     <p class="en">all contents are originally keeped its license by <a href="https://mizuki.sakaiminato.net/road/">Mizuki Shigeru Memorial Museum</a>.</p>
    ``` 
 - user can randomize the order
