@@ -114,6 +114,7 @@ function App() {
     <div style={{ maxWidth: 768, margin: '0 auto', padding: 16 }}>
       <h1>妖怪暗記</h1>
       <h2>Yokai Flashcards</h2>
+      <p>水木しげる記念館ホームページに公開されている妖怪の情報を元に作成した暗記カード</p>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12 }}>
         <input
           value={query}
@@ -144,7 +145,7 @@ function App() {
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
               />
             ) : (
-              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: '#6b7280' }}>画像は反転後に表示</div>
+              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: '#6b7280' }}>画像はタップ後に表示</div>
             )}
           </div>
           <div style={{ padding: 12 }}>
