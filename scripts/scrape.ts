@@ -57,21 +57,30 @@ function parseYokaiFromSection(
   const imageUrl = absoluteUrl(pageUrl, imgSrc);
 
   const titleText = String(section.find("div.text_area h3.simple").first().text() || "").trim();
-  // Pattern like: "149. ばけぞうり" → id=149, name=ばけぞうり
+  const asciiTitle = titleText.normalize("NFKC");
+  // Extract id if present at start (works with full-width via NFKC)
   let id = NaN;
-  let name = titleText;
-  const m = titleText.match(/^(\d+)\.\s*(.+)$/);
-  if (m && m[1] && m[2]) {
-    id = parseInt(m[1], 10);
-    name = m[2].trim();
+  const idMatch = asciiTitle.match(/^(\d+)/);
+  if (idMatch && idMatch[1]) {
+    id = parseInt(idMatch[1], 10);
   }
-  name = normalizeName(name);
+  // Remove up to 3 leading numbers (half/full width) each with optional punctuation and spaces
+  const strippedTitle = titleText.replace(/^\s*(?:[0-9０-９]+\s*[\.:：:．、・]?\s*){1,3}/, "");
+  let name = normalizeName(strippedTitle);
 
-  const locationRaw = String(section.find("div.text_area p.border_text").first().text() || "").trim();
-  // e.g. "出現地／伊勢（三重県）"
+  const border = section.find("div.text_area p.border_text").first();
+  const strongTexts = border.find("strong").toArray().map((el) => String($(el).text() || "").trim()).filter(Boolean);
   let location: string | null = null;
-  const locMatch = locationRaw.replace(/\s+/g, "").match(/出現地／(.+)/);
-  if (locMatch) location = locMatch[1] ?? null;
+  if (strongTexts.length > 0) {
+    // Prefer the last strong text as the location (sites often wrap the value in <strong>)
+    location = strongTexts[strongTexts.length - 1] ?? null;
+  } else {
+    const locationRaw = String(border.text() || "").trim();
+    // Normalize spaces and try multiple separators: full/half slashes and colons
+    const condensed = locationRaw.replace(/\s+/g, "");
+    const m = condensed.match(/出現地[／/:：](.+)/);
+    location = (m?.[1] ?? null);
+  }
 
   const descriptionText = String(section.find("div.text_area > p").not(".border_text").first().text() || "").trim();
   const description = descriptionText.length > 0 ? descriptionText : null;
