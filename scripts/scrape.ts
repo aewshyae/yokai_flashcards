@@ -10,6 +10,7 @@ type Yokai = {
   imageUrl: string | null;
   location: string | null;
   description: string | null;
+  reading: string | null;
   sourcePage: string;
 };
 
@@ -85,6 +86,28 @@ function parseYokaiFromSection(
   const descriptionText = String(section.find("div.text_area > p").not(".border_text").first().text() || "").trim();
   const description = descriptionText.length > 0 ? descriptionText : null;
 
+  // Parse 読み (reading) if present in any border_text line
+  let reading: string | null = null;
+  section.find("div.text_area p.border_text").each((_, el) => {
+    if (reading) return; // already found
+    const border = $(el);
+    const raw = String(border.text() || "").trim();
+    const condensed = raw.replace(/\s+/g, "");
+    if (/^(読み|よみ)/.test(condensed)) {
+      const strongTexts = border
+        .find("strong")
+        .toArray()
+        .map((s) => String($(s).text() || "").trim())
+        .filter(Boolean);
+      if (strongTexts.length > 0) {
+        reading = strongTexts[strongTexts.length - 1] ?? null;
+      } else {
+        const m = condensed.match(/(?:読み|よみ)[／/:：](.+)/);
+        reading = (m?.[1] ?? null);
+      }
+    }
+  });
+
   if (!name) return null;
 
   return {
@@ -93,6 +116,7 @@ function parseYokaiFromSection(
     imageUrl,
     location,
     description,
+    reading,
     sourcePage: pageUrl,
   };
 }
