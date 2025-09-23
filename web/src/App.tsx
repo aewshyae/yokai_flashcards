@@ -20,13 +20,13 @@ function App() {
   const [deck, setDeck] = useState<Yokai[]>([])
 
   useEffect(() => {
-    fetch('/yokai.json')
+    fetch(`${import.meta.env.BASE_URL}yokai.json`)
       .then((r) => r.json())
       .then((data: Yokai[]) => setYokai(data))
   }, [])
 
   useEffect(() => {
-    fetch('/aliases.json', { cache: 'no-store' })
+    fetch(`${import.meta.env.BASE_URL}aliases.json`, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : {}))
       .then((data: AliasesMap) => setAliases(data || {}))
       .catch(() => setAliases({}))
