@@ -17,9 +17,10 @@
 ## 目的
 水木しげるロードのサイトにある各種妖怪の紹介ページから、以下の情報を抽出し、フラッシュカードのサービスを作る。
 - ブロンズ像画像
-- 妖怪名 (remove number)
-- 出現地 (remove "出現地／")
-- 説明 (mask its 妖怪名)
+- 妖怪名
+- 読み(optional)
+- 出現地
+- 説明
 
 ### 情報形式
 各ページには多数の妖怪情報が以下の形式で存在する。
@@ -27,18 +28,19 @@
 **example** 
 ```html
 <section class="section_box common_box statue_box">
-<p class="img_box"><img class="filer_image " alt="ばけぞうり" src="/user/filer_public_thumbnails/filer_public/f4/ad/f4ad3c73-f34b-4fe7-8c33-217267febe75/149.jpg__1020x765_q85_subsampling-2.jpg">
+<p class="img_box"><img class="filer_image " alt="二口女" src="/user/filer_public_thumbnails/filer_public/23/58/23586c47-a1a8-4ab9-ab92-2101b945391f/150.jpg__1020x765_q85_subsampling-2.jpg">
 </p>
 
 <div class="text_area">
-<h3 class="simple">149. ばけぞうり</h3>
+<h3 class="simple">150. 二口女</h3>
 
-<p class="border_text">出現地／<strong>伊勢（三重県）</strong></p>
+<p class="border_text mab0 bottom_no">読み／<strong>ふたくちおんな</strong></p>
 
-<p>草履が化けた付喪神の一種。昔、履物を粗末にする家に毎晩どこからか声が聞こえてくる。恐ろしくなり、正体を確かめようと、ある夜、戸の隙間からのぞいてみたら、化け草履がいつも履物を投げ捨てておく物置の隅へ入っていったということである。</p>
+<p class="border_text">出現地／<strong>下総（千葉県北部、茨城県南西部）ほか</strong></p>
+
+<p>食べ物を与えず継子を殺した女が二口女となる。口が前後にあって、食べる時には髪の先が蛇になり、後ろの口の箸のかわりをする。後の口に食べ物を与えないと、あらぬことをわめいて苦しめる。</p>
 </div>
-</section>
-```
+</section>```
 
 
 ### 対象ページ

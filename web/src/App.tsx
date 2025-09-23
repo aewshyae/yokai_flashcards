@@ -7,6 +7,7 @@ type Yokai = {
   imageUrl: string | null
   location: string | null
   description: string | null
+  reading: string | null
 }
 
 type AliasesMap = Record<string, string[]>
@@ -148,6 +149,9 @@ function App() {
             <h2 style={{ fontSize: 22, margin: 0, color: '#111827' }}>{flipped ? current.name : '？？？'}</h2>
             {current.location && (
               <p style={{ margin: '6px 0', color: '#374151' }}>{String(current.location).replace(/^出現地／/, '')}</p>
+            )}
+            {flipped && current.reading && (
+              <p style={{ margin: '6px 0', color: '#4b5563' }}>読み：{current.reading}</p>
             )}
             {maskedDescription && (
               <p style={{ margin: 0, color: '#111827', fontSize: 15, lineHeight: 1.6 }}>{maskedDescription}</p>
