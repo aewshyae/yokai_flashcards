@@ -83,6 +83,7 @@ function App() {
 
   const namesToMask = current ? [current.name, ...(aliases[current.name] ?? [])] : []
   const maskedDescription = current ? maskNamesInText(namesToMask, current.description) : null
+  const descriptionToShow = current ? (flipped ? current.description : maskedDescription) : null
 
   function handleCardClick() {
     if (!current) return
@@ -153,8 +154,8 @@ function App() {
             {current.location && (
               <p style={{ margin: '6px 0', color: '#374151' }}>{String(current.location).replace(/^出現地／/, '')}</p>
             )}
-            {maskedDescription && (
-              <p style={{ margin: 0, color: '#111827', fontSize: 15, lineHeight: 1.6 }}>{maskedDescription}</p>
+            {descriptionToShow && (
+              <p style={{ margin: 0, color: '#111827', fontSize: 15, lineHeight: 1.6 }}>{descriptionToShow}</p>
             )}
           </div>
           <div style={{ padding: 12, color: '#6b7280', fontSize: 13 }}>
