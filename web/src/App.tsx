@@ -26,7 +26,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch('/aliases.json')
+    fetch('/aliases.json', { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : {}))
       .then((data: AliasesMap) => setAliases(data || {}))
       .catch(() => setAliases({}))
