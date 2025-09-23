@@ -1,4 +1,7 @@
-# Youkai Kentei
+# Yokai Flashcards
+
+
+
 
 ## Scripts
 - `npm run scrape` — scrape target pages and write `data/yokai.json`.
@@ -26,3 +29,11 @@
 - Behavior:
   - Description masking targets the base name and any listed aliases.
   - Masking tolerates spaces (半角/全角) between characters within the description.
+
+## License
+
+すべての画像・テキストの権利は取得元である[水木しげる記念館ホームページ](https://mizuki.sakaiminato.net/road/)が保有しています。
+
+All contents are originally keeped its license by [Mizuki Shigeru Memorial Museum](https://mizuki.sakaiminato.net/road/).
+
+Code is released under the MIT License. See [LICENSE](./LICENSE).

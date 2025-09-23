@@ -13,6 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "@types/cheerio": "^0.22.35",
