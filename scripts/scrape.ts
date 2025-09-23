@@ -69,19 +69,27 @@ function parseYokaiFromSection(
   const strippedTitle = titleText.replace(/^\s*(?:[0-9０-９]+\s*[\.:：:．、・]?\s*){1,3}/, "");
   let name = normalizeName(strippedTitle);
 
-  const border = section.find("div.text_area p.border_text").first();
-  const strongTexts = border.find("strong").toArray().map((el) => String($(el).text() || "").trim()).filter(Boolean);
+  // Parse 出現地 (location) only from lines explicitly labeled as such
   let location: string | null = null;
-  if (strongTexts.length > 0) {
-    // Prefer the last strong text as the location (sites often wrap the value in <strong>)
-    location = strongTexts[strongTexts.length - 1] ?? null;
-  } else {
-    const locationRaw = String(border.text() || "").trim();
-    // Normalize spaces and try multiple separators: full/half slashes and colons
-    const condensed = locationRaw.replace(/\s+/g, "");
-    const m = condensed.match(/出現地[／/:：](.+)/);
-    location = (m?.[1] ?? null);
-  }
+  section.find("div.text_area p.border_text").each((_, el) => {
+    if (location) return; // already found
+    const border = $(el);
+    const raw = String(border.text() || "").trim();
+    const condensed = raw.replace(/\s+/g, "");
+    if (/^出現地[／/:：]?/.test(condensed)) {
+      const strongTexts = border
+        .find("strong")
+        .toArray()
+        .map((s) => String($(s).text() || "").trim())
+        .filter(Boolean);
+      if (strongTexts.length > 0) {
+        location = strongTexts[strongTexts.length - 1] ?? null;
+      } else {
+        const m = condensed.match(/出現地[／/:：](.+)/);
+        location = m?.[1] ?? null;
+      }
+    }
+  });
 
   const descriptionText = String(section.find("div.text_area > p").not(".border_text").first().text() || "").trim();
   const description = descriptionText.length > 0 ? descriptionText : null;
