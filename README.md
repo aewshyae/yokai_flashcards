@@ -4,7 +4,7 @@
 
 ## License
 
-すべての画像・テキストの権利は[水木しげる記念館ホームページ](https://mizuki.sakaiminato.net/road/)が保有しています。
+すべての画像・テキストの権利は[水木しげる記念館ホームページ](https://mizuki.sakaiminato.net/road/)に帰属します。
 
 All contents are originally keeped its license by [Mizuki Shigeru Memorial Museum](https://mizuki.sakaiminato.net/road/).
 
