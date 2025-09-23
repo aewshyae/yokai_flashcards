@@ -147,11 +147,11 @@ function App() {
           </div>
           <div style={{ padding: 12 }}>
             <h2 style={{ fontSize: 22, margin: 0, color: '#111827' }}>{flipped ? current.name : '？？？'}</h2>
-            {current.location && (
-              <p style={{ margin: '6px 0', color: '#374151' }}>{String(current.location).replace(/^出現地／/, '')}</p>
-            )}
             {flipped && current.reading && (
               <p style={{ margin: '6px 0', color: '#4b5563' }}>読み：{current.reading}</p>
+            )}
+            {current.location && (
+              <p style={{ margin: '6px 0', color: '#374151' }}>{String(current.location).replace(/^出現地／/, '')}</p>
             )}
             {maskedDescription && (
               <p style={{ margin: 0, color: '#111827', fontSize: 15, lineHeight: 1.6 }}>{maskedDescription}</p>
