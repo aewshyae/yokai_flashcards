@@ -174,6 +174,9 @@ function App() {
         <p className="ja">すべての画像・テキストの権利は<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
         <p className="en">all contents are originally keeped its license by <a href="https://mizuki.sakaiminato.net/road/">Mizuki Shigeru Memorial Museum</a>.</p>
       </div>
+      <div className="contact" style={{ marginTop: 12, fontSize: 12, lineHeight: 1.6 }}>
+        <p>サポート/お問い合わせは<a href="https://github.com/aewshyae">GitHub@aewshyae</a>まで</p>
+      </div>
     </div>
   )
 }
