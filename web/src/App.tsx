@@ -168,7 +168,7 @@ function App() {
         {deck.length > 0 && `${(currentIndex % deck.length) + 1} / ${deck.length}`}
       </div>
       <div className="license" style={{ marginTop: 16, fontSize: 12, lineHeight: 1.6 }}>
-        <p className="ja">すべての画像・テキストの権利は取得元である<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
+        <p className="ja">すべての画像・テキストの権利は<a href="https://mizuki.sakaiminato.net/road/">水木しげる記念館ホームページ</a>が保有しています。</p>
         <p className="en">all contents are originally keeped its license by <a href="https://mizuki.sakaiminato.net/road/">Mizuki Shigeru Memorial Museum</a>.</p>
       </div>
     </div>
