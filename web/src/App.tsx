@@ -112,7 +112,8 @@ function App() {
 
   return (
     <div style={{ maxWidth: 768, margin: '0 auto', padding: 16 }}>
-      <h1>妖怪フラッシュカード / Yokai Flashcards</h1>
+      <h1>妖怪暗記</h1>
+      <h2>Yokai Flashcards</h2>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12 }}>
         <input
           value={query}
