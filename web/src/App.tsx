@@ -111,7 +111,7 @@ function App() {
   }
 
   return (
-    <div style={{ maxWidth: 768, margin: '0 auto', padding: 16 }}>
+    <div style={{ maxWidth: 768, margin: '0 auto', padding: 16, color: 'var(--color-text)' }}>
       <h1>妖怪暗記</h1>
       <h2>Yokai Flashcards</h2>
       <p>水木しげる記念館ホームページに公開されている妖怪の情報を元に作成した暗記カード</p>
@@ -128,15 +128,15 @@ function App() {
         <article
           onClick={handleCardClick}
           style={{
-            border: '1px solid #e5e7eb',
+            border: '1px solid var(--color-border)',
             borderRadius: 8,
             overflow: 'hidden',
-            background: '#fff',
+            background: 'var(--color-card-bg)',
             cursor: 'pointer',
             userSelect: 'none',
           }}
         >
-          <div style={{ width: '100%', aspectRatio: '1 / 1', position: 'relative', background: '#f3f4f6' }}>
+          <div style={{ width: '100%', aspectRatio: '1 / 1', position: 'relative', background: 'var(--color-image-bg)' }}>
             {flipped && current.imageUrl ? (
               // eslint-disable-next-line jsx-a11y/img-redundant-alt
               <img
@@ -145,29 +145,29 @@ function App() {
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
               />
             ) : (
-              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: '#6b7280' }}>画像はタップ後に表示</div>
+              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: 'var(--color-muted)' }}>画像はタップ後に表示</div>
             )}
           </div>
           <div style={{ padding: 12 }}>
-            <h2 style={{ fontSize: 22, margin: 0, color: '#111827' }}>{flipped ? current.name : '？？？'}</h2>
+            <h2 style={{ fontSize: 22, margin: 0, color: 'var(--color-title)' }}>{flipped ? current.name : '？？？'}</h2>
             {flipped && current.reading && (
-              <p style={{ margin: '6px 0', color: '#4b5563' }}>読み：{current.reading}</p>
+              <p style={{ margin: '6px 0', color: 'var(--color-muted)' }}>読み：{current.reading}</p>
             )}
             {current.location && (
-              <p style={{ margin: '6px 0', color: '#374151' }}>{String(current.location).replace(/^出現地／/, '')}</p>
+              <p style={{ margin: '6px 0', color: 'var(--color-body)' }}>{String(current.location).replace(/^出現地／/, '')}</p>
             )}
             {descriptionToShow && (
-              <p style={{ margin: 0, color: '#111827', fontSize: 15, lineHeight: 1.6 }}>{descriptionToShow}</p>
+              <p style={{ margin: 0, color: 'var(--color-body)', fontSize: 15, lineHeight: 1.6 }}>{descriptionToShow}</p>
             )}
           </div>
-          <div style={{ padding: 12, color: '#6b7280', fontSize: 13 }}>
+          <div style={{ padding: 12, color: 'var(--color-muted)', fontSize: 13 }}>
             {flipped ? 'クリックで次のカードへ' : 'クリックで反転して名前を表示'}
           </div>
         </article>
       ) : (
         <p>該当するカードがありません</p>
       )}
-      <div style={{ marginTop: 8, color: '#6b7280', fontSize: 13 }}>
+      <div style={{ marginTop: 8, color: 'var(--color-muted)', fontSize: 13 }}>
         {deck.length > 0 && `${(currentIndex % deck.length) + 1} / ${deck.length}`}
       </div>
       <div className="license" style={{ marginTop: 16, fontSize: 12, lineHeight: 1.6 }}>
