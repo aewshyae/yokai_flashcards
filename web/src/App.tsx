@@ -142,7 +142,7 @@ function App() {
               <img
                 src={current.imageUrl}
                 alt={`${current.name}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'var(--image-filter)' }}
               />
             ) : (
               <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', color: 'var(--color-muted)' }}>画像はタップ後に表示</div>

@@ -15,6 +15,7 @@
   --color-body: #e5e7eb; /* gray-200 */
   --color-muted: #9ca3af; /* gray-400 */
   --color-image-bg: #111827; /* gray-900 */
+  --image-filter: brightness(0.85) contrast(1.05) saturate(0.95);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -76,6 +77,7 @@ button:focus-visible {
     --color-body: #111827; /* gray-900 */
     --color-muted: #6b7280; /* gray-500 */
     --color-image-bg: #f3f4f6; /* gray-100 */
+    --image-filter: none;
   }
   a:hover {
     color: #747bff;
