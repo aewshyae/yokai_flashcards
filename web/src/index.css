@@ -5,16 +5,16 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0b1220;
   /* theme variables (dark defaults) */
-  --color-bg: #242424;
+  --color-bg: #0b1220;
   --color-text: rgba(255, 255, 255, 0.87);
-  --color-card-bg: #1f2937; /* gray-800 */
-  --color-border: #374151; /* gray-700 */
-  --color-title: #f9fafb; /* gray-50 */
-  --color-body: #e5e7eb; /* gray-200 */
-  --color-muted: #9ca3af; /* gray-400 */
-  --color-image-bg: #111827; /* gray-900 */
+  --color-card-bg: #0f1b2d; /* navy card */
+  --color-border: #1e2a3f; /* navy border */
+  --color-title: #e6edf7; /* cool off-white */
+  --color-body: #c9d6ea; /* cool light */
+  --color-muted: #8aa0bd; /* cool muted */
+  --color-image-bg: #070d18; /* deep navy */
   --image-filter: brightness(0.85) contrast(1.05) saturate(0.95);
 
   font-synthesis: none;
