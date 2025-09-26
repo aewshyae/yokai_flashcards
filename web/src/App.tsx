@@ -19,6 +19,7 @@ function App() {
   const [flipped, setFlipped] = useState(false)
   const [aliases, setAliases] = useState<AliasesMap>({})
   const [deck, setDeck] = useState<Yokai[]>([])
+  const [quizMode, setQuizMode] = useState<'normal' | 'hard'>('normal')
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}yokai.json`)
@@ -53,6 +54,10 @@ function App() {
     setFlipped(false)
   }, [filtered])
 
+  useEffect(() => {
+    setFlipped(false)
+  }, [quizMode])
+
   const current = deck.length > 0 ? deck[currentIndex % deck.length] : null
 
   function escapeRegExp(text: string) {
@@ -83,7 +88,11 @@ function App() {
 
   const namesToMask = current ? [current.name, ...(aliases[current.name] ?? [])] : []
   const maskedDescription = current ? maskNamesInText(namesToMask, current.description) : null
-  const descriptionToShow = current ? (flipped ? current.description : maskedDescription) : null
+  const descriptionToShow = current
+    ? ((quizMode === 'hard') && !flipped
+        ? '？？？'
+        : (flipped ? current.description : maskedDescription))
+    : null
 
   function handleCardClick() {
     if (!current) return
@@ -122,12 +131,22 @@ function App() {
           placeholder="検索(名前・出現地・説明)"
           style={{ flex: 1, padding: 8, fontSize: 16 }}
         />
+        <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 14 }}>
+          <input
+            type="checkbox"
+            checked={quizMode === 'hard'}
+            onChange={(e) => setQuizMode(e.target.checked ? 'hard' : 'normal')}
+            aria-label="反転モード"
+          />
+          反転モード
+        </label>
         <button onClick={shuffleDeck} aria-label="shuffle" style={{ padding: '8px 12px' }}>ランダム</button>
       </div>
       {current ? (
         <article
           onClick={handleCardClick}
           style={{
+            width: '100%',
             border: '1px solid var(--color-border)',
             borderRadius: 8,
             overflow: 'hidden',
@@ -149,19 +168,27 @@ function App() {
             )}
           </div>
           <div style={{ padding: 12 }}>
-            <h2 style={{ fontSize: 22, margin: 0, color: 'var(--color-title)' }}>{flipped ? current.name : '？？？'}</h2>
-            {flipped && current.reading && (
-              <p style={{ margin: '6px 0', color: 'var(--color-muted)' }}>読み：{current.reading}</p>
+            <h2 style={{ fontSize: 22, margin: 0, color: 'var(--color-title)' }}>{((quizMode === 'hard') || flipped) ? current.name : '？？？'}</h2>
+            {(quizMode === 'hard') && !flipped ? (
+              <p style={{ margin: '6px 0', color: 'var(--color-muted)' }}>読み：？？？</p>
+            ) : (
+              flipped && current.reading && (
+                <p style={{ margin: '6px 0', color: 'var(--color-muted)' }}>読み：{current.reading}</p>
+              )
             )}
-            {current.location && (
-              <p style={{ margin: '6px 0', color: 'var(--color-body)' }}>{String(current.location).replace(/^出現地／/, '')}</p>
+            {(quizMode === 'hard') && !flipped ? (
+              <p style={{ margin: '6px 0', color: 'var(--color-body)' }}>出現地：？？？</p>
+            ) : (
+              current.location && (
+                <p style={{ margin: '6px 0', color: 'var(--color-body)' }}>出現地：{String(current.location).replace(/^出現地／/, '')}</p>
+              )
             )}
             {descriptionToShow && (
               <p style={{ margin: 0, color: 'var(--color-body)', fontSize: 15, lineHeight: 1.6 }}>{descriptionToShow}</p>
             )}
           </div>
           <div style={{ padding: 12, color: 'var(--color-muted)', fontSize: 13 }}>
-            {flipped ? 'クリックで次のカードへ' : 'クリックで反転して名前を表示'}
+            {flipped ? 'クリックで次のカードへ' : 'クリックで詳細を表示'}
           </div>
         </article>
       ) : (
