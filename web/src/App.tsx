@@ -124,14 +124,14 @@ function App() {
       <h1>妖怪暗記</h1>
       <h2>Yokai Flashcards</h2>
       <p>水木しげる記念館ホームページに公開されている妖怪の情報を元に作成した暗記カード</p>
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12 }}>
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12, flexWrap: 'nowrap', whiteSpace: 'nowrap', overflowX: 'auto' }}>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="検索(名前・出現地・説明)"
-          style={{ flex: 1, padding: 8, fontSize: 16 }}
+          style={{ flex: '1 1 0%', minWidth: 140, padding: 8, fontSize: 16 }}
         />
-        <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 14 }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 14, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
           <input
             type="checkbox"
             checked={quizMode === 'hard'}
@@ -140,7 +140,7 @@ function App() {
           />
           反転モード
         </label>
-        <button onClick={shuffleDeck} aria-label="shuffle" style={{ padding: '8px 12px' }}>ランダム</button>
+        <button onClick={shuffleDeck} aria-label="shuffle" style={{ padding: '8px 12px', flex: '0 0 auto' }}>ランダム</button>
       </div>
       {current ? (
         <article
