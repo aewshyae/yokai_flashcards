@@ -172,7 +172,7 @@ function App() {
             {(quizMode === 'hard') && !flipped ? (
               <p style={{ margin: '6px 0', color: 'var(--color-muted)' }}>読み：？？？</p>
             ) : (
-              flipped && current.reading && (
+              current.reading && (
                 <p style={{ margin: '6px 0', color: 'var(--color-muted)' }}>読み：{current.reading}</p>
               )
             )}
